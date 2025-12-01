@@ -16,8 +16,8 @@ services:
   nginx:
     build:
       args:
-        http_proxy: http://192.168.31.98:1080
-        https_proxy: http://192.168.31.98:1080
+        http_proxy: http://127.0.0.1:1080
+        https_proxy: http://127.0.0.1:1080
       context: ./
       dockerfile: Dockerfile-nginx
     image: nginx-openssl:latest
@@ -33,22 +33,6 @@ services:
       - ./logs/:/var/log/nginx/
     restart: always
 
-  # squid:
-    # build:
-      # args:
-        # http_proxy: http://192.168.31.98:1080
-        # https_proxy: http://192.168.31.98:1080
-      # context: .
-      # dockerfile: Dockerfile-squid
-    # image: squid-openssl
-    # container_name: mitm-squid
-    # ports:
-      # - "3128:3128"
-    # volumes:
-      # - ./squid/squid.conf:/etc/squid/squid.conf:ro
-      # - ./cache:/var/spool/squid
-      # - ./logs:/var/log/squid
-    # restart: always
 
 # ca证书
 # openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509   -keyout myRootCA.key   -out myRootCA.pem   -subj "/C=CN/ST=GD/L=SZ/O=MySquidProxy/OU=ProxyCA/CN=MySquidRootCA"

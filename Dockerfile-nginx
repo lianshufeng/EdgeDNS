@@ -6,11 +6,11 @@
 # 使用 Debian bullseye-fat 作为基础镜像（包含完整构建环境）
 FROM openresty/openresty:bullseye-fat
 
-# 更新系统包
-RUN apt update
-
 # 安装 luarocks（bullseye-fat 已有必要工具链，可直接用）
-RUN apt install -y luarocks
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends luarocks \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # 安装 lua-resty-openssl （动态证书生成所需的模块）
 RUN luarocks install lua-resty-openssl
